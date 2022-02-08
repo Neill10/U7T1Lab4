@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-import java.util.Locale;
-
 public class ArrayListAlgorithms
 {
     /** Returns true if any of the elements in stringList contain
@@ -208,7 +206,6 @@ public class ArrayListAlgorithms
     {
         for(int i = 0; i < intList.size();i++)
         {
-            System.out.println(intList.size());
             for(int x = 0; x < intList.size();x++)
             {
                 if (i !=x ) {
@@ -352,49 +349,58 @@ public class ArrayListAlgorithms
      */
     public static ArrayList<Integer> modes(int[] numList)
     {
+        int[] modeList = new int[numList.length];
         ArrayList<Integer> newList = new ArrayList<Integer>();
-        int highestMode = 0;
-        int currentMode = 0;
-        for (int i = 0; i < numList.length;i++)
-        {
 
+        for (int i  = 0; i < numList.length;i++)
+        {
+            int mode = 0;
             for(int x = 0; x < numList.length;x++)
             {
-                if(i != x)
+                if(x != i)
                 {
                     if(numList[i] == numList[x])
                     {
-                        currentMode++;
-
+                        mode++;
                     }
-
-                    if(highestMode < currentMode)
-                    {
-
-                        highestMode = currentMode;
-                        for(int y = 0; y < newList.size();y++)
-                        {
-                            newList.remove(y);
-                        }
-                        newList.add(numList[i]);
-                        i = x;
-                    }
-
                 }
             }
+            modeList[i] = mode;
+        }
+        //[1,2,3,2,4,5,5,6]
+        //[0,1,0,1,0,1,1,0]
 
+        int mode = 0;
+        for(int i : modeList)
+        {
+            if(mode < i)
+            {
+                mode = i;
+            }
+        }
+        if(mode != 0) {
+            int idx = 0;
+            for (int i : modeList) {
+                if (i == mode) {
+                    newList.add(numList[idx]);
+                }
+                idx++;
+            }
+        }
+        for(int i = 0; i < newList.size();i++)
+        {
+            for(int x = 0; x < newList.size();x++)
+            {
+                if(x!= i)
+                {
+                    if(newList.get(i) == newList.get(x))
+                    {
+                        newList.remove(x);
+                        x--;
+                    }
+                }
+            }
         }
         return newList;
     }
-    /*
-            int[] temp = new int[numList.length];
-        for(int a = 0; a <numList.length;i++)
-        {
-
-        }
-     */
-
-
-
-
 }
